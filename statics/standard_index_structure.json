@@ -1,0 +1,58 @@
+{
+    "name": "email",
+    "storage_type": "disk",
+    "shard_num": 1,
+    "mappings": {
+        "properties": {
+            "Message-ID": {
+                "type": "text",
+                "index": true
+            },
+            "Date": {
+                "type": "string"
+            },
+            "From": {
+                "type": "text"
+            },
+            "To": {
+                "type": "text"
+            },
+            "Subject": {
+                "type": "text"
+            },
+            "Mime-Version": {
+                "type": "text"
+            },
+            "Content-Type": {
+                "type": "text"
+            },
+            "Content-Transfer-Encoding": {
+                "type": "text"
+            },
+            "X-From": {
+                "type": "text"
+            },
+            "X-To": {
+                "type": "text"
+            },
+            "X-cc": {
+                "type": "text"
+            },
+            "X-bcc": {
+                "type": "text"
+            },
+            "X-Folder": {
+                "type": "text"
+            },
+            "X-Origin": {
+                "type": "text"
+            },
+            "X-FileName": {
+                "type": "text"
+            },
+            "Content": {
+                "type": "text"
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+go 1.19
+
+use ./src
+
+use ./src/zinc/test
+use ./src/zinc
+use ./src/fileHandlers
+use ./src/models
+use ./src/fileHandlers/test
+use ./src/constants

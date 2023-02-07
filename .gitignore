@@ -1,3 +1,11 @@
+## Envs values.
 *.env
+
+## Folders.
 data/
+profiling/
 static/enron_mail_20110402/
+
+## Binaries.
+main_after_changes
+main_before_changes

@@ -17,10 +17,11 @@ type IndexHandler struct {
 	IndexModel *models.ZincIndex
 }
 
-func NewIndexHandler() *IndexHandler {
-	jsonFile, err := os.Open("./../../standard_index_structure.json")
+func NewIndexHandler(structure_path string) (*IndexHandler, error) {
+	jsonFile, err := os.Open(structure_path)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("Error open json file. %v\n", err)
+		return nil, err
 	}
 	fmt.Println("Successfully Opened index structure")
 	defer jsonFile.Close()
@@ -32,7 +33,7 @@ func NewIndexHandler() *IndexHandler {
 
 	return &IndexHandler{
 		IndexModel: &standardIndex,
-	}
+	}, nil
 }
 
 func (IndexHandler *IndexHandler) createRequestData() *models.IRequestData {
@@ -47,21 +48,21 @@ func (IndexHandler *IndexHandler) CreateIndex() ([]byte, error) {
 	requestData := IndexHandler.createRequestData()
 	req, err := http.NewRequest("POST", constants.ZINC_HOST+"/api/index", *requestData)
 	if err != nil {
-		log.Fatal(err)
+		log.Default().Panic(err)
 		return nil, err
 	}
 
 	SetHeaders(req)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		log.Default().Panic(err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 	log.Println(resp.StatusCode)
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		log.Default().Panic(err)
 
 		return nil, err
 	}

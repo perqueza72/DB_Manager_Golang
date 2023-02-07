@@ -15,6 +15,6 @@ type Email struct {
 	XFolder                 string `json:"X-Folder"`
 	XOrigin                 string `json:"X-Origin"`
 	XFileName               string `json:"X-FileName"`
-	Content                 string
+	Content                 string `json:"Content"`
 	Date                    string `json:"Date"`
 }

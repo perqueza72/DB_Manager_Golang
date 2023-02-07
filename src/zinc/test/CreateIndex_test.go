@@ -9,7 +9,7 @@ func TestCreateIndex(t *testing.T) {
 	t.Setenv("ZINC_ADMIN_USER", "admin")
 	t.Setenv("ZINC_ADMIN_PASSWORD", "Complexpass#123")
 
-	index_handler := zinc_handler.NewIndexHandler()
+	index_handler, err := zinc_handler.NewIndexHandler("./../../../static/standard_index_structure.json")
 	index_handler.IndexModel.Name = "another_name"
 	got, err := index_handler.CreateIndex()
 

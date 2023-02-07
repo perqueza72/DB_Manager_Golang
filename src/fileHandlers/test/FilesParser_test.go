@@ -7,7 +7,7 @@ import (
 
 func TestFolderParser(t *testing.T) {
 
-	emails, err := filehandlers.FolderFiles2Email("/home/perqueza72/Workspace/Truora/prueba_tecnica/statics/enron_mail_20110402/maildir/allen-p/_sent_mail")
+	emails, err := filehandlers.FolderFiles2Email("./../../../static/enron_mail_20110402/maildir/allen-p/_sent_mail")
 	if err != nil {
 		t.Error(err)
 	}
@@ -21,8 +21,8 @@ func TestFolderParser(t *testing.T) {
 
 func TestFileParser(t *testing.T) {
 
-	path := "/home/perqueza72/Workspace/Truora/prueba_tecnica/statics/enron_mail_20110402/maildir/allen-p/_sent_mail/1."
-	lines, errGetLines := filehandlers.GetLines(path)
+	path := "./../../../static/enron_mail_20110402/maildir/allen-p/_sent_mail/1."
+	lines, errGetLines := filehandlers.GetLines(&path)
 	if errGetLines != nil {
 		t.Error(errGetLines)
 	}
@@ -43,7 +43,8 @@ func TestFileParser(t *testing.T) {
 }
 
 func TestParseStrings2Email(t *testing.T) {
-	got, _ := filehandlers.GetLines("/home/perqueza72/Workspace/Truora/prueba_tecnica/statics/enron_mail_20110402/maildir/allen-p/all_documents/1.")
+	path := "./../../../static/enron_mail_20110402/maildir/allen-p/all_documents/1."
+	got, _ := filehandlers.GetLines(&path)
 
 	email, err := filehandlers.ParseStrings2Email(got)
 	if err != nil {

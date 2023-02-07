@@ -1,3 +1,3 @@
 *.env
 data/
-statics/enron_mail_20110402/
+static/enron_mail_20110402/

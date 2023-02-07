@@ -7,8 +7,8 @@ import (
 	"reflect"
 )
 
-func GetLines(path string) (*[]string, error) {
-	readFile, err := os.Open(path)
+func GetLines(path *string) (*[]*string, error) {
+	readFile, err := os.Open(*path)
 
 	if err != nil {
 		return nil, err
@@ -17,16 +17,17 @@ func GetLines(path string) (*[]string, error) {
 
 	fileScanner.Split(bufio.ScanLines)
 
-	response := []string{}
+	response := []*string{}
 	for fileScanner.Scan() {
-		response = append(response, fileScanner.Text())
+		text := fileScanner.Text()
+		response = append(response, &text)
 	}
 	readFile.Close()
 
 	return &response, nil
 }
 
-func ParseStrings2Email(strings *[]string) (*models.Email, error) {
+func ParseStrings2Email(strings *[]*string) (*models.Email, error) {
 
 	email := models.Email{}
 
@@ -52,11 +53,11 @@ func ParseStrings2Email(strings *[]string) (*models.Email, error) {
 			prev_string += actual_string
 			actual_string = ""
 		}
-		for _, c := range line {
+		for _, c := range *line {
 			if c == ':' {
 
 				exist, _, _ := ExistJsonProperty(&email, actual_string)
-				if ExistProperty(&email, actual_string) || exist {
+				if exist {
 
 					if property != "" {
 
@@ -82,6 +83,10 @@ func ParseStrings2Email(strings *[]string) (*models.Email, error) {
 				continue
 			}
 			actual_string += string(c)
+		}
+
+		if lastProperty {
+			actual_string += "\n"
 		}
 	}
 

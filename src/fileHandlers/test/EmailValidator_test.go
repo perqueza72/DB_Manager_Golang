@@ -9,7 +9,7 @@ import (
 func TestEmailValidator(t *testing.T) {
 	email := models.Email{}
 
-	exist := filehandlers.ExistProperty(email, "Message")
+	exist := filehandlers.ExistProperty(&email, "Message")
 	if !exist {
 		t.Errorf("Not work properly")
 		t.Fail()
@@ -22,7 +22,7 @@ func TestEmailValidator(t *testing.T) {
 func TestEmailValidatorPropertyNotExist(t *testing.T) {
 	email := models.Email{}
 
-	exist := filehandlers.ExistProperty(email, "NotExist")
+	exist := filehandlers.ExistProperty(&email, "NotExist")
 	if exist {
 		t.Errorf("Not work properly")
 		t.Fail()

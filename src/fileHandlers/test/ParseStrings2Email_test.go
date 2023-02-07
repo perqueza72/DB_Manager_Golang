@@ -7,7 +7,8 @@ import (
 )
 
 func TestGetLines(t *testing.T) {
-	_, err := filehandlers.GetLines("/home/perqueza72/Downloads/enron_mail_20110402/maildir/allen-p/all_documents/1.")
+	path := "./../../../static/enron_mail_20110402/maildir/allen-p/all_documents/1."
+	_, err := filehandlers.GetLines(&path)
 
 	if err != nil {
 		t.Errorf("Error getting lines. %v", err)

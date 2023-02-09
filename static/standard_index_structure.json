@@ -9,7 +9,7 @@
                 "index": true
             },
             "Date": {
-                "type": "string"
+                "type": "text"
             },
             "From": {
                 "type": "text"

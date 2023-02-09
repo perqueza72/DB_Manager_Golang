@@ -1,4 +1,4 @@
-module root
+module indexer_go
 
 go 1.19
 

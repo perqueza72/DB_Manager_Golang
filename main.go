@@ -13,13 +13,20 @@ import (
 
 func uploadFilesIntoZinc(path string) {
 
-	defer log.Default().Printf("Files were uploaded.")
+	log.Default().Println("Start to insert")
+	defer log.Default().Printf("Program finish.")
 
 	indexHandler, err := zinc_handler.NewIndexHandler("./static/standard_index_structure.json")
 	if err != nil {
-		log.Fatal(err)
+		log.Default().Panicln("Aqui")
+		log.Default().Fatal(err)
 	}
-	indexHandler.CreateIndex()
+
+	_, err = indexHandler.CreateIndex()
+	if err != nil {
+		log.Default().Fatal(err)
+	}
+
 	err = filehandlers.FolderInsert(path)
 	if err != nil {
 		log.Default().Printf("Error trying to insert, %v", err)
@@ -36,7 +43,7 @@ func main() {
 		path_arg++
 		f, err := os.Create(*cpuprofile)
 		if err != nil {
-			log.Fatal(err)
+			log.Default().Fatal(err)
 		}
 		pprof.StartCPUProfile(f)
 		defer pprof.StopCPUProfile()
@@ -46,7 +53,6 @@ func main() {
 	godotenv.Load(".env")
 
 	if len(os.Args) > path_arg {
-		log.Default().Println("Start to insert")
 		uploadFilesIntoZinc(os.Args[path_arg])
 	}
 }

@@ -30,6 +30,7 @@ func NewIndexHandler(structure_path string) (*IndexHandler, error) {
 
 	var standardIndex models.ZincIndex
 	json.Unmarshal(byteValue, &standardIndex)
+	standardIndex.Name = constants.ZINC_EMAIL_INDEX
 
 	return &IndexHandler{
 		IndexModel: &standardIndex,
@@ -61,6 +62,17 @@ func (IndexHandler *IndexHandler) CreateIndex() ([]byte, error) {
 	defer resp.Body.Close()
 	log.Println(resp.StatusCode)
 	body, err := io.ReadAll(resp.Body)
+
+	indexResponseModel := models.IndexResponseModel{}
+	json.NewDecoder(resp.Body).Decode(&indexResponseModel)
+	if indexResponseModel.Auth != "" {
+		return nil, fmt.Errorf("error authenticating. %v", indexResponseModel.Auth)
+	}
+
+	if indexResponseModel.Error != "" {
+		return nil, fmt.Errorf("error trying to create a new index. %v", indexResponseModel.Error)
+	}
+
 	if err != nil {
 		log.Default().Panic(err)
 
